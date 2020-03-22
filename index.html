@@ -1,1 +1,328 @@
-<h1>test  tec</h1>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>极爱自己 - 陈冠希</title>
+    <meta charset='UTF-8'/>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="./music/assets/music-favicon.ico" type="image/x-icon"/>
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <style type="text/css">
+        @-moz-keyframes rotate {
+            0% {
+                -moz-transform: rotate(0deg);
+            }
+            100% {
+                -moz-transform: rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes rotate {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .AlbumImg {
+            width: 50%;
+            z-index: 2;
+
+            border-radius: 50% 50% 50% 50%;
+            -moz-animation: rotate 15s infinite linear;
+            -webkit-animation: rotate 15s infinite linear;
+            animation: rotate 15s infinite linear;
+            margin-top: 1rem;
+
+        }
+
+        .PauseImg {
+            position: absolute;
+            width: 5rem;
+            z-index: 3;
+
+            visibility: hidden;
+        }
+
+        .LrcWrapper {
+            margin-top: 2rem;
+            /*固定高度*/
+            height: 6rem;
+        }
+
+        .LrcMain {
+            font-weight: bold;
+            font-family: Times, serif;
+            font-size: 1.3rem;
+        }
+
+        .LrcSecond {
+            font-family: Times, serif;
+        }
+
+        .Footer {
+            /*position: absolute;*/
+            /*left: 0;*/
+            /*right: 0;*/
+            /*bottom: 0;*/
+            /*text-align: center;*/
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+
+<body onresize="bodyOnResize()">
+<div class="wrapper" align="center">
+    <br>
+
+    <img id="pauseImg" class="PauseImg" src="./music/assets/pause.png" alt="" onclick="pauseImgClick()">
+
+    <img id="albumImg" class="AlbumImg" src="./music/albums/jiaiziji-chenguanxi.jpg" alt="专辑图片"
+         onclick="albumImgClick();" onload="letPauseBtnBeCenterOnAlbum();" />
+
+
+    <h4>
+        极爱自己 - 陈冠希 <br>
+        时间：2000年11月 <br>
+        专辑：《陈冠希》
+    </h4>
+    <!--歌词-->
+    <div class="LrcWrapper">
+        <div id="lrcTop" class="LrcSecond"></div>
+        <div id="lrcMain" class="LrcMain">
+            歌词
+        </div>
+        <div id="lrcBottom" class="LrcSecond"></div>
+    </div>
+    <img style="margin-top: 4rem;" src="./music/assets/playing.gif" alt=""><br>
+    <audio style="width: 100%;" id="player"
+           class="player" src="./music/audios/jiaiziji-chenguanxi.mp3" loop autoplay controls 
+           onpause="playerOnPause()"
+           onplay="playerOnPlay()">
+               该浏览器不支持音乐
+           </audio>
+
+    <div class="Footer" align="center">
+        <a style="font-size: 1.2rem;font-weight: bold;" href="./index.20200322.html">进入阿昌的主页</a>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    // 控制歌词同步
+    var player = document.getElementById('player');
+    var lrcMain = document.getElementById('lrcMain');
+    var lrcTop = document.getElementById('lrcTop');
+    var lrcBottom = document.getElementById('lrcBottom');
+    var albumImg = document.getElementById('albumImg');
+    var pauseImg = document.getElementById('pauseImg');
+
+    var lrcContent = '[ti:极爱自己]\n' +
+        '[ar:陈冠希]\n' +
+        '\n' +
+        '[00:00.00]歌曲  :  极爱自己\n' +
+        '[00:08.00]曲  :  张国荣  词  :  林夕  编曲  :  Adrian Chan\n' +
+        '[00:15.00]一起应该多一百倍心跳\n' +
+        '[00:21.00]不一起该有十次眼眉调\n' +
+        '[00:28.00]得一分钟应该想你一秒\n' +
+        '[00:34.00]但我不喜欢每一刻都对表\n' +
+        '\n' +
+        '[00:41.00]双手应该分一半抱紧你\n' +
+        '[00:48.00]相恋应比各自快活神奇\n' +
+        '[00:54.00]相处应不遗馀力花心机\n' +
+        '[01:00.00]然而原谅我\n' +
+        '[01:02.00]仍然极爱自己\n' +
+        '\n' +
+        '[01:07.00]I love you I love you\n' +
+        '[01:10.00]让我全心喜欢你\n' +
+        '[01:13.00]留下眼 留下耳\n' +
+        '[01:17.00]陪着自己不给你\n' +
+        '\n' +
+        '[01:20.00]I owe you I owe you\n' +
+        '[01:23.00]让我留低一口气\n' +
+        '[01:26.00]欠你的一半情\n' +
+        '[01:28.00]没有年期\n' +
+        '[01:30.00]来分开送赠你\n' +
+        '\n' +
+        '\n' +
+        '\n' +
+        '[01:34.00]You see the world is out there waiting for me\n' +
+        '[01:37.00]that\'s why I wanna be as free as can be!\n' +
+        '[01:40.00]I know that you\'ve been good and\n' +
+        '[01:42.00]you\'ve been sweet, so don\'t put up a fight,\n' +
+        '[01:45.00]just let it be!  well, I hope one day,\n' +
+        '[01:48.00]While I\'m missing you.  And so will you be\n' +
+        '[01:52.00]thinking of me!  Then we can be together,\n' +
+        '[01:55.00]to laugh about the past, but the love is\n' +
+        '[01:57.00]still there for you and me.\n' +
+        '\n' +
+        '\n' +
+        '\n' +
+        '[02:01.00]双手应该分一半抱紧你\n' +
+        '[02:07.00]相恋应比各自快活神奇\n' +
+        '[02:14.00]相处应不遗馀力花心机\n' +
+        '[02:20.00]然而原谅我\n' +
+        '[02:22.00]仍然极爱自己\n' +
+        '\n' +
+        '[02:26.00]I love you I love you\n' +
+        '[02:30.00]让我全心喜欢你\n' +
+        '[02:33.00]留下眼 留下耳\n' +
+        '[02:36.00]陪着自己不给你\n' +
+        '\n' +
+        '\n' +
+        '[02:39.00]I owe you I owe you\n' +
+        '[02:43.00]让我留低一口气\n' +
+        '[02:45.00]欠你的一半情\n' +
+        '[02:48.00]没有年期\n' +
+        '[02:50.00]逐天给你\n' +
+        '\n' +
+        '\n' +
+        '[02:53.00]I love you I love you\n' +
+        '[02:56.00]让我全心喜欢你\n' +
+        '[02:59.00]留下眼 留下耳\n' +
+        '[03:03.00]陪着自己不给你\n' +
+        '\n' +
+        '[03:06.00]I owe you I owe you\n' +
+        '[03:09.00]让我留低一口气\n' +
+        '[03:12.00]欠你的一半情\n' +
+        '[03:15.00]没有年期\n' +
+        '\n' +
+        '[03:16.00]来分开送给你\n' +
+        '[03:24.00]\n' +
+        '\n';
+
+    /**
+     * 让暂停按钮居中专辑图片
+     * */
+    function letPauseBtnBeCenterOnAlbum() {
+        var albumImgHeight = albumImg.offsetHeight;
+        var albumImgWidth = albumImg.offsetWidth;
+        var albumImgLeft = albumImg.offsetLeft;
+        var albumImgTop = albumImg.offsetTop;
+
+        var pauseImgHeight = pauseImg.offsetHeight;
+        var pauseImgWidth = pauseImg.offsetWidth;
+
+        var innerOffsetLeft = albumImgWidth / 2 - pauseImgWidth / 2;
+        var innerOffsetTop = albumImgHeight / 2 - pauseImgHeight / 2;
+        var offsetLeft = albumImgLeft + innerOffsetLeft;
+        var offsetTop = albumImgTop + innerOffsetTop;
+
+        pauseImg.style.left = offsetLeft + 'px';
+        pauseImg.style.top = offsetTop + 'px';
+    }
+
+    /**
+     * @param lrc
+     * @returns {Array} 返回结果是时间对应的歌词array[{time(s), clause}, ...]
+     */
+    function parseLyric(lrc) {
+        var lyrics = lrc.split("\n");
+        var lrcArr = [];
+        var idx = 0;
+        for (var i = 0; i < lyrics.length; i++) {
+            var lyric = decodeURIComponent(lyrics[i]);
+            var timeReg = /\[\d*:\d*((\.|\:)\d*)*\]/g;
+            var timeRegExpArr = lyric.match(timeReg);
+            if (!timeRegExpArr) continue;
+            var clause = lyric.replace(timeReg, '');
+            for (var k = 0, h = timeRegExpArr.length; k < h; k++) {
+                var t = timeRegExpArr[k];
+                var min = Number(String(t.match(/\[\d*/i)).slice(1)),
+                    sec = Number(String(t.match(/\:\d*/i)).slice(1));
+                var time = min * 60 + sec;
+
+                lrcArr[idx++] = {time: time, clause: clause};
+            }
+        }
+        return lrcArr;
+    }
+
+
+    var lrcArr = parseLyric(lrcContent);
+    // player.play();
+
+    player.ontimeupdate = function (e) {
+        //当前播放的时间
+        var currentTime = this.currentTime;
+
+        //遍历所有歌词，看哪句歌词的时间与当然时间吻合
+        for (var i = 0; i < lrcArr.length; i++) {
+            var obj = lrcArr[i];
+            if (currentTime <= obj.time) {
+                continue;
+            }
+
+            if (i > 0) {
+                lrcTop.innerHTML = lrcArr[i - 1].clause;
+            }
+            if (i > 1) {
+                lrcTop.innerHTML = lrcArr[i - 2].clause + '<br>';
+                lrcTop.innerHTML += lrcArr[i - 1].clause;
+            }
+
+            //显示到页面
+            lrcMain.innerHTML = obj.clause;
+
+            if (i < lrcArr.length - 1) {
+                lrcBottom.innerHTML = lrcArr[i + 1].clause;
+            }
+            if (i < lrcArr.length - 2) {
+                lrcBottom.innerHTML = lrcArr[i + 1].clause + '<br>';
+                lrcBottom.innerHTML += lrcArr[i + 2].clause;
+            }
+
+        }//遍历结束
+
+    };
+
+    function bodyOnResize() {
+        letPauseBtnBeCenterOnAlbum();
+    }
+
+    /**
+     * 专辑头像点击事件
+     */
+    function albumImgClick() {
+        if (player.paused === false) {
+            player.pause();
+        } else {
+            player.play()
+        }
+    }
+
+    function pauseImgClick() {
+        if (pauseImg.style.visibility === 'visible') {
+            player.play()
+        }
+    }
+
+    function playerOnPlay() {
+        albumImg.style.animationPlayState = 'running';
+        pauseImg.style.visibility = 'hidden';
+    }
+
+    function playerOnPause() {
+        albumImg.style.animationPlayState = 'paused';
+        pauseImg.style.visibility = 'visible';
+    }
+    playerOnPause();
+
+     // 适配微信
+    document.addEventListener('WeixinJSBridgeReady', function() {
+        player.play();
+    }, false);
+
+</script>
+
+</html>

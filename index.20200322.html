@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TQC's page</title>
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon" />
+    <meta charset='UTF-8'/>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <!-- 适配微信 -->
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <link rel="stylesheet" href="https://static.runoob.com/assets/foundation-icons/foundation-icons.css">
+
+
+    <style type="text/css">
+    body {
+        background-color: #fff;
+        margin: 0;
+    }
+
+    .Wrapper {
+        margin: 3rem;
+    }
+
+    .ImgWrapper {
+        text-align: left;
+    }
+
+    .ImgWrapper img {
+        width: 80%;
+        margin-top: 1.1rem;
+        margin-bottom: 1.1rem;
+        float: left;
+    }
+
+    .ProfileWrapper {
+        color: #000;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+
+        text-align: left;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+
+    .ProfileWrapper a {
+        color: black;
+        text-decoration: none;
+    }
+
+    .ProfileWrapper button {
+        font-weight: bold;
+        font-size: 1.2rem;
+        /*按钮背景透明，文字不透明*/
+        background-color: rgba(192, 192, 192, 0.3);
+        margin: 0.3rem;
+    }
+    .MusicWrapper {
+        text-align: left;
+    }
+
+    #playButton{
+        font-weight: bold;
+        /*按钮背景透明，文字不透明*/
+        background-color: rgba(192, 192, 192, 0.3);
+
+        width: 2rem;
+        height: 2rem;
+        float: right;
+    }
+
+    #playingImg {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .Thank {
+        border-top: solid;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="Wrapper">
+        <div class="MusicWrapper">
+            <h4>
+                背景音乐：
+                <img id="playingImg" src="./music/assets/playing.gif" alt="">
+                <button id="playButton" onclick="playButtonClick()"><i class="fi-play"></i></button>
+                <br>战争
+                <br>陈冠希 / 陈奂仁
+            </h4>
+            <!--歌词-->
+            <audio style="width: 100%" id="player" class="player" 
+            src="music/audios/zhanzheng.mp3" 
+            loop autoplay="autoplay" 
+            onpause="playerOnPause()" 
+            onplay="playerOnPlay()">
+            该浏览器不支持音乐
+            </audio>
+        </div>
+
+        <div class="ProfileWrapper">
+            <div style="border-bottom: solid;">
+                阿昌 Java程序员 
+            </div>
+            <br> ● 坐标：北京 
+            <br> ● 西安理工大学-计算机科学-18届
+            <br> ● 南宁二中
+            <br> ● 生日：1996-03-07
+            <br><span id="wechat"> ● 微信：tqc935749228</span>
+            <br><span id="wechat"> ● 邮箱：qingchang96@sina.com</span>
+        </div>
+        <div class="ImgWrapper">
+            <img id="mainImg" src="assets/man.jpg">
+        </div>
+        <br>
+        <div class="ProfileWrapper">
+            <a target="_blank" href="./resume/resume.html"><button>简 历</button></a>
+            <a target="_blank" href="https://weibo.com/tqccc"><button>微 博</button></a>
+            <a target="_blank" href="https://www.v2ex.com/member/tqccc"><button>V2EX</button></a>
+            <a target="_blank" href="https://www.instagram.com/tqccc_"><button>Instagram</button></a>
+            <a target="_blank" href="https://github.com/TQCCC"><button>Github</button></a>
+            <a target="_blank" href="http://blog.csdn.net/HingCheung"><button>CSDN技术博客</button></a>
+            <a target="_blank" href="https://github.com/TQCCC/BallBattle"><button>游戏作品：BallBattle</button></a>
+            <a target="_blank" href="mailto:qingchang96@sina.com"><button>✉ 邮件</button></a>
+        </div>
+        <br>
+        
+        <div class="Thank">
+            <h3> ● 致谢</h3>
+            <div style="font-weight: bold;">
+                感谢您花时间阅读我的主页
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+    // 控制歌词同步
+    var player = document.getElementById('player');
+    var playButton = document.getElementById('playButton');
+
+    function playerOnPause() {
+        if (playButton === null) {
+            return;
+        }
+        playButton.innerHTML = "<i class='fi-play'></i>";
+    }
+
+    function playerOnPlay() {
+        if (playButton === null) {
+            return;
+        }
+        playButton.innerHTML = "<i class='fi-pause'></i>";
+    }
+
+    function playButtonClick() {
+        if (player === null) {
+            return;
+        }
+
+        if (player.paused === false) {
+            pauseMusic();
+        } else {
+            playMusic();
+        }
+    }
+
+    function playMusic() {
+        player.play();
+    }
+
+    function pauseMusic() {
+        player.pause();
+    }
+
+    var hasAutoPlay = false;
+    function autoPlay() {
+        if (hasAutoPlay === false) {
+            player.play();
+            hasAutoPlay = true;
+        }
+    }
+
+    // 适配微信
+    document.addEventListener("WeixinJSBridgeReady", autoPlay, false);
+    // 移动端 
+    // document.addEventListener('touchstart', autoPlay);
+    // document.addEventListener('mousedown', autoPlay);
+    </script>
+</body>
+
+</html>
