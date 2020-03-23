@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <title>TQC's page</title>
+    <link rel="shortcut icon" href="../assets/favicon.ico" type="image/x-icon" />
+    <script src="Box2dWeb-2.1.a.3.min.js" charset="utf-8"></script>
+    <script src="lufylegend.ui-0.14.1.min.js" charset="utf-8"></script>
+    <script src="lufylegend-1.10.1.min.js" charset="utf-8"></script>
+    <script src="js/Main.js" charset="utf-8"></script>
+    <style media="screen">
+    body {
+        /*overflow-y: hidden;
+                overflow-x: hidden;*/
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin: 0px;
+    }
+
+    canvas#mylegend_canvas {
+        position: absolute;
+    }
+
+    div#txt {
+        position: relative;
+        margin: 0px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="mylegend"></div>
+    <script type="text/javascript">
+    document.ondrag = function() { return !1; }
+    document.onselect = function() { return !1; }
+    document.onselectstart = function() { return !1; }
+
+    var BACK_WIDTH = window.innerWidth;
+    var BACK_HEIGHT = window.innerHeight * 1;
+
+    init(30, "mylegend", window.innerWidth, window.innerHeight, main);
+    </script>
+</body>
+
+</html>
