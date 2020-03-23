@@ -14,9 +14,11 @@
 - **电话：18292007259**
 - **邮箱：qingchang96@sina.com**
 - **微信：tqc935749228**
-- **个人主页: (https://tqccc.github.io)**
-- **Github: (https://github.com/TQCCC)**
-- **技术博客: (http://blog.csdn.net/HingCheung)**
+- **个人主页: [tqccc.github.io](https://tqccc.github.io)**
+- **Github: [github/TQCCC](https://github.com/TQCCC)**
+- **技术博客: [HingCheung](http://blog.csdn.net/HingCheung)**
+- **掘金: [TQCCC](https://juejin.im/user/5cf0a4d4f265da1b7152db50)**
+
 
 ---
 
