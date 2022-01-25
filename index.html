@@ -23,7 +23,13 @@
 </head>
 
 <body>
-    <iframe src="https://tqccc.gitee.io/gitbook/"></iframe>
+    <iframe></iframe>
 </body>
+
+<script>
+    window.onload = function () {
+        window.frames[0].location.href = 'https://tqccc.gitee.io/gitbook/?new=' + new Date().getTime();
+    }
+</script>
 
 </html>
