@@ -3,16 +3,16 @@
 
 <head>
     <title>♥♥♥</title>
-    <meta charset='UTF-8'/>
+    <meta charset='UTF-8' />
     <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
-    
-    <link rel="shortcut icon" href="./music/assets/music-favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
-    
+
+    <link rel="shortcut icon" href="./music/assets/music-favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   
+
 </head>
 
 <body>
@@ -25,7 +25,16 @@
     </div>
 </body>
 <script type="text/javascript">
-       
+    var soFar = $("#soFar");
+    var nowTimestamp = new Date().getTime();
+    var loveTimestamp = 1547395200000;
+
+    var delta = nowTimestamp - loveTimestamp;
+    var deltaDay = parseInt(delta / (1000 * 60 * 60 * 24));
+
+    soFar.html(deltaDay);
+
+
 </script>
 
 </html>
